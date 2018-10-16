@@ -24,6 +24,8 @@ dbl function(dbl y, dbl x, dbl t)
 int main()
 {
 	Vector3D** onScreen = new Vector3D* [1000];
+	Triangle* mesh;
+	mesh = new Triangle [2 * (1000 - 1)*(1000 - 1)];
 	for (int i = 0; i < 1000; i++)
 	{
 		onScreen[i] = new Vector3D [1000];
@@ -116,6 +118,7 @@ int main()
 				s.put_pixel_3(o.X+ 500, o.Y + 500);
 			}
 		}
+		VertexToTriangle(onScreen, 1000, 1000, mesh);
 		s.Draw();
 		//..cout << "render" << "\n";
 		//cout << ca.Location.X << " " << ca.Location.Y << " " << ca.Location.Z << "\n";

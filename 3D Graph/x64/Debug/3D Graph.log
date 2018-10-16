@@ -9,5 +9,5 @@ c:\users\shreyansh darshan\documents\github\3d-graph\3d graph\render.h(82): warn
 c:\users\shreyansh darshan\documents\github\3d-graph\3d graph\render.h(91): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
 c:\users\shreyansh darshan\documents\github\3d-graph\3d graph\render.h(94): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
 c:\users\shreyansh darshan\documents\github\3d-graph\3d graph\render.h(95): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\shreyansh darshan\documents\github\3d-graph\3d graph\3d graph.cpp(116): warning C4244: 'argument': conversion from 'long double' to 'int', possible loss of data
+c:\users\shreyansh darshan\documents\github\3d-graph\3d graph\3d graph.cpp(118): warning C4244: 'argument': conversion from 'long double' to 'int', possible loss of data
   3D Graph.vcxproj -> C:\Users\Shreyansh Darshan\Documents\GitHub\3D-Graph\x64\Debug\3D Graph.exe
