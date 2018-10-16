@@ -27,6 +27,9 @@
     <ClInclude Include="render.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="3d.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

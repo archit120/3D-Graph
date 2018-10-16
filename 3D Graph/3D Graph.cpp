@@ -8,136 +8,10 @@
 #include <cmath>
 #include <vector>
 #include <conio.h>
-
+#include "3d.h"
 #define dbl long double
 
 using namespace std;
-
-
-class Vector3D
-{
-public :
-	dbl X;
-	dbl Y;
-	dbl Z;
-	Vector3D operator / (dbl a)
-	{
-		return Vector3D(X / a, Y / a, Z / a);
-	}
-	Vector3D operator * (dbl a)
-	{
-		return Vector3D(X * a, Y * a, Z * a);
-	}
-	Vector3D operator + (Vector3D a)
-	{
-		return Vector3D(X + a.X, Y + a.Y, Z + a.Z);
-	}
-	Vector3D operator - (Vector3D a)
-	{
-		return Vector3D(X - a.X, Y - a.Y, Z - a.Z);
-	}
-
-	dbl Magnitude()
-	{
-		return sqrt(X*X + Y*Y + Z*Z);
-	}
-	Vector3D Unit()
-	{
-		return Vector3D(X, Y, Z) / Magnitude();
-	}
-	dbl dotProduct(Vector3D a)
-	{
-		return X*a.X + Y*a.Y + Z*a.Z;
-	}
-	Vector3D crossProduct(Vector3D a)
-	{
-		return Vector3D(Y*a.Z - Z*a.Y, Z*a.X - X*a.Z, X*a.Y - Y*a.X);
-	}
-	Vector3D()
-	{
-		X = Y = Z = 0;
-	}
-	Vector3D(dbl x, dbl y, dbl z)
-	{
-		X = x, Y = y, Z = z;
-	}
-};
-
-class Camera
-{
-private:
-	Vector3D focusPoint;
-
-public:
-	Vector3D Normal;
-	Vector3D xAxis;
-	Vector3D yAxis;
-	Vector3D Location;
-	dbl focalLength;
-
-
-	void CalculateFocusPoint()
-	{
-		focusPoint = Location + Normal* focalLength;
-	}
-	Vector3D WorldToScreen(Vector3D Point)
-	{
-		CalculateFocusPoint();
-		Vector3D dir = Point - focusPoint;
-		Vector3D rel = Point - Location;
-	 if ((focusPoint - Location).dotProduct(Normal) * rel.dotProduct(Normal) < 0)
-		{
-			return Vector3D(-10000, -10000, -10000);
-		}
-	 if (!dir.dotProduct(Normal) )
-		{
-		return Vector3D(-10000, -10000, -10000);
-		} 
-	 if ( focalLength > abs(rel.dotProduct(Normal)))
-		{
-		return Vector3D(-10000, -10000, -10000);
-		}
-
-		dbl ln = Location.dotProduct(Normal);
-		dbl lambda = (ln - Point.dotProduct(Normal)) / dir.dotProduct(Normal);
-		Vector3D POI = Point + dir*lambda;
-		rel = POI - Location;
-		//invert for virtual image
-		double x = -xAxis.dotProduct(rel);
-		double y = -yAxis.dotProduct(rel);
-		return Vector3D(x, y, 0);
-	}
-
-	void rotateAxis(dbl theta)
-	{
-		yAxis = (yAxis* (cos(theta)) + yAxis.crossProduct(Normal) * (sin(theta) )) ;
-		xAxis =(xAxis* (cos(theta) ) + xAxis.crossProduct(Normal) * (sin(theta) ));
-	}
-	void rotateNormalX(dbl theta)
-	{
-		Normal = (Normal* (cos(theta) ) + Normal.crossProduct(yAxis) * (sin(theta) )) ;
-		xAxis = Normal.crossProduct(Vector3D(0, 0, -1)).Unit();
-		yAxis = Normal.crossProduct(xAxis);
-		Location = focusPoint - Normal *focalLength;
-	}
-	void rotateNormalY(dbl theta)
-	{
-		Normal = (Normal* (cos(theta)) + Normal.crossProduct(xAxis) * (sin(theta) ))  ;
-		xAxis = Normal.crossProduct(Vector3D(0, 0, -1)).Unit();
-		yAxis = Normal.crossProduct(xAxis);
-		Location = focusPoint - Normal *focalLength;
-
-	}
-	Camera(Vector3D startLocation, dbl FocalLength)
-	{
-		Location = startLocation;
-		Normal = (Vector3D(0,0,0)-startLocation).Unit();
-		focalLength = FocalLength;
-		//Create a random y Axis
-		xAxis = Normal.crossProduct(Vector3D(0, 0, -1)).Unit();
-		yAxis = Normal.crossProduct(xAxis);
-	}
-};
 
 dbl function(dbl y, dbl x, dbl t)
 {
@@ -149,6 +23,12 @@ dbl function(dbl y, dbl x, dbl t)
 
 int main()
 {
+	Vector3D** onScreen = new Vector3D* [1000];
+	for (int i = 0; i < 1000; i++)
+	{
+		onScreen[i] = new Vector3D [1000];
+	}
+
 	Camera ca(Vector3D(10, 10, 10), 290);
 	ca.Location = Vector3D(305, 0, 4);
 	//ca.Normal = Vector3D(-1, 0, 0);
@@ -231,7 +111,7 @@ int main()
 			{
 				dbl z = function(y, x,-t);
 				//cout << z << "\n";
-				auto o = ca.WorldToScreen(Vector3D(x, y, z));
+				auto o = onScreen[(int)(x*10 + 500)][(int)(y*10 + 500)] = ca.WorldToScreen(Vector3D(x, y, z));
 				//cout << o.X << " " << o.Y << " " << o.Z<< "\n";
 				s.put_pixel_3(o.X+ 500, o.Y + 500);
 			}
