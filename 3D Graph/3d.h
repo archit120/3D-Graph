@@ -55,6 +55,15 @@ class Triangle
 public:
 	Vector3D actual[3];
 	Vector3D projected[3];
+	Vector3D normal;
+
+	dbl CalculateNormal()
+	{
+		normal = (actual[1] - actual[0]).crossProduct(actual[2] - actual[0]);
+		normal = normal.Unit();
+		return normal.dotProduct(Vector3D(0, 0, 1));
+	}
+
 };
 
 void VertexToTriangle(Vector3D** vertex, int sizex, int sizey, Triangle* faces)
@@ -71,6 +80,10 @@ void VertexToTriangle(Vector3D** vertex, int sizex, int sizey, Triangle* faces)
 			faces[count].projected[0] = Vector3D((x - 500) / 10.0, (y - 500) / 10.0, 0);
 			faces[count].projected[1] = Vector3D((x + 1 - 500) / 10.0, (y - 500) / 10.0, 0);
 			faces[count].projected[2] = Vector3D((x + 1 - 500) / 10.0, (y + 1 - 500) / 10.0, 0);
+			if (faces[count].CalculateNormal() < 0)
+			{
+				faces[count].normal = faces[count].normal * (-1);
+			}
 			count++;
 			faces[count].actual[0] = vertex[x][y];
 			faces[count].actual[1] = vertex[x + 1][y];
@@ -78,6 +91,10 @@ void VertexToTriangle(Vector3D** vertex, int sizex, int sizey, Triangle* faces)
 			faces[count].projected[0] = Vector3D((x - 500) / 10.0, (y - 500) / 10.0, 0);
 			faces[count].projected[1] = Vector3D((x + 1 - 500) / 10.0, (y - 500) / 10.0, 0);
 			faces[count].projected[2] = Vector3D((x - 500) / 10.0, (y - 1 - 500) / 10.0, 0);
+			if (faces[count].CalculateNormal() < 0)
+			{
+				faces[count].normal = faces[count].normal * (-1);
+			}
 			count++;
 		}
 	}
@@ -89,6 +106,10 @@ void VertexToTriangle(Vector3D** vertex, int sizex, int sizey, Triangle* faces)
 		faces[count].projected[0] = Vector3D((x - 500) / 10.0, (0 - 500) / 10.0, 0);
 		faces[count].projected[1] = Vector3D((x + 1 - 500) / 10.0, (0 - 500) / 10.0, 0);
 		faces[count].projected[2] = Vector3D((x + 1 - 500) / 10.0, (1 - 500) / 10.0, 0);
+		if (faces[count].CalculateNormal() < 0)
+		{
+			faces[count].normal = faces[count].normal * (-1);
+		}
 		count++;
 		faces[count].actual[0] = vertex[x][sizey - 1];
 		faces[count].actual[1] = vertex[x + 1][sizey - 1];
@@ -96,6 +117,10 @@ void VertexToTriangle(Vector3D** vertex, int sizex, int sizey, Triangle* faces)
 		faces[count].projected[0] = Vector3D((x - 500) / 10.0, (sizey - 1 - 500) / 10.0, 0);
 		faces[count].projected[1] = Vector3D((x + 1 - 500) / 10.0, (sizey - 1 - 500) / 10.0, 0);
 		faces[count].projected[2] = Vector3D((x - 500) / 10.0, (sizey - 2 - 500) / 10.0, 0);
+		if (faces[count].CalculateNormal() < 0)
+		{
+			faces[count].normal = faces[count].normal * (-1);
+		}
 		count++;
 	}
 }
