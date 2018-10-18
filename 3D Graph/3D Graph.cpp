@@ -1,5 +1,5 @@
 // 3D Graph.cpp : Defines the entry point for the console application.
-//
+//AUTHOR: archit120 + ShreyanshDarshan
 
 #include "stdafx.h"
 
@@ -8,8 +8,13 @@
 #include <cmath>
 #include <vector>
 #include <conio.h>
-#include "3d.h"
+#include "Triangle.h"
+#include "Camera.h"
+#include "Vector3D.h"
+
 #define dbl long double
+#define sizex 1000
+#define sizey 1000
 
 using namespace std;
 
@@ -118,7 +123,26 @@ int main()
 				s.put_pixel_3(o.X+ 500, o.Y + 500);
 			}
 		}
-		VertexToTriangle(onScreen, 1000, 1000, mesh);
+
+		int count = 0;
+		for (int y = 1; y < 1000 - 1; y += 1)
+		{
+			for (int x = 0; x < 1000-1; x += 1)
+			{
+				mesh[count].VertexToTriangle(onScreen, x, y, 1);
+				count++;
+				mesh[count].VertexToTriangle(onScreen, x, y, 0);
+				count++;
+			}
+		}
+		for (int x = 0; x < 1000 - 1; x += 1)
+		{
+			mesh[count].VertexToTriangle(onScreen, x, 0, 1);
+			count++;
+			mesh[count].VertexToTriangle(onScreen, x, 1000 - 1, 0);
+			count++;
+		}
+
 		s.Draw();
 		//..cout << "render" << "\n";
 		//cout << ca.Location.X << " " << ca.Location.Y << " " << ca.Location.Z << "\n";
