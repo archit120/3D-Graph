@@ -27,12 +27,18 @@
     <ClInclude Include="render.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Vector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="3D Graph.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LinearRegression.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

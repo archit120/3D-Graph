@@ -14,7 +14,10 @@ class VectorND
 
 public:
 	double* Values;
-
+	int getDimensions()
+	{
+		return Dimensions;
+	}
 	VectorND operator / (dbl a)
 	{
 		double* values = new double[Dimensions]();

@@ -155,7 +155,7 @@ int main()
 	ca.yAxis = Vector3D(0, 0, 1);
 	ca.xAxis = Vector3D(0, 1, 0);
 	ca.Normal = ca.yAxis.crossProduct(ca.xAxis);
-	Screen s(1000, 1000);
+	Screen s(2000, 2000);
 	_getch();
 	SetCursorPos(500, 500);
 	double t = 0;
