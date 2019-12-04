@@ -5,6 +5,7 @@
 #include"Vector3D.h"
 #define dbl long double
 
+
 dbl Triangle::CalculateNormal()
 {
 	normal = (actual[1] - actual[0]).crossProduct(actual[2] - actual[0]);

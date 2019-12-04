@@ -18,6 +18,9 @@
 
 using namespace std;
 
+/*
+	Represents the function to be plotted by returning the z value. The variables y and x correspond to input coordinates. A third variable t is for interactive plots.
+*/
 dbl function(dbl y, dbl x, dbl t)
 {
 	return sin(sqrt((x) * (x)+(y) * (y)));
@@ -36,7 +39,6 @@ int main()
 	{
 		onScreen[i] = new Vector3D [1000];
 	}*/
-
 	Camera ca(Vector3D(10, 10, 10), 290);
 	ca.Location = Vector3D(305, 0, 4);
 	//ca.Normal = Vector3D(-1, 0, 0);
