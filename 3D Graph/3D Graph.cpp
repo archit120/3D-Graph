@@ -17,19 +17,20 @@
 #define sizey 1000
 
 using namespace std;
-
 /*
 	Represents the function to be plotted by returning the z value. The variables y and x correspond to input coordinates. A third variable t is for interactive plots.
 */
 dbl function(dbl y, dbl x, dbl t)
 {
-	return sin(sqrt((x) * (x)+(y) * (y)));
+	return sin(sqrt((x)*(x)*(x)+(y) * (y)));
 	//if(y < 50 && x < 50)
 	//return sin(sqrt((x +25)*(x +25) + (y - 10)*(y - 10)) + t)  + sin(sqrt((x+25)*(x+25) + (y +10)*(y +10)) + 2*t);
 	//return sqrt(y*x);
 	//return 0;
 }
-
+/*
+	The main function containing the running code
+*/
 int main()
 {
 	/*Vector3D** onScreen = new Vector3D* [1000];
@@ -39,24 +40,28 @@ int main()
 	{
 		onScreen[i] = new Vector3D [1000];
 	}*/
+
 	Camera ca(Vector3D(10, 10, 10), 290);
 	ca.Location = Vector3D(305, 0, 4);
 	//ca.Normal = Vector3D(-1, 0, 0);
 	ca.yAxis = Vector3D(0, 0, 1);
 	ca.xAxis = Vector3D(0, 1, 0);
 	ca.Normal = ca.yAxis.crossProduct(ca.xAxis);
-	Screen s(1000, 1000);
+	Screen s(1000, 1000);// Screen is a class from render.h. It creates a screen to generate the given graph
 	_getch();
 	SetCursorPos(500, 500);
+	/*
+		variable 't' is used to control the movement of screen according to the different values of t. The screen can be moved in different ways using this variable in this loop 
+	*/
 	double t = 0;
-	while (true)
+	while (true)//this is a continuous loop so as to provide continuous input through keyboard and mouse
 	{
 		t += 0.1;
 		s.clear();
-		if (_kbhit())
+		if (_kbhit())//It is generally used by Borland's family of compilers. It returns a non-zero integer if a key is in the keyboard buffer.
 		{
 			char c;
-			c = _getch();
+			c = _getch();//read a single character from the console without echoing the character. 
 
 			switch (c)
 			{
@@ -115,9 +120,9 @@ int main()
 		}
 
 		SetCursorPos(p.x, p.y);
-		for (double x = -50; x < 50; x+=0.1)
+		for (double x = -50; x < 100; x+=0.1)
 		{
-			for (double y = -50; y < 50; y+=0.1)
+			for (double y = -50; y < 100; y+=0.1)
 			{
 				dbl z = function(y, x,-t);
 				//cout << z << "\n";
@@ -153,7 +158,7 @@ int main()
  		//_getch();
 		//s.clear();
 	}
-	_getch();
+	_getch();//finally
     return 0;
 }
 
