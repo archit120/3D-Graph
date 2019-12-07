@@ -11,6 +11,7 @@
 #include "Triangle.h"
 #include "Camera.h"
 #include "Vector3D.h"
+#include "Vector2D.h"
 
 #define dbl long double
 #define sizex 1000
@@ -45,9 +46,9 @@ int main()
 	ca.yAxis = Vector3D(0, 0, 1);
 	ca.xAxis = Vector3D(0, 1, 0);
 	ca.Normal = ca.yAxis.crossProduct(ca.xAxis);
-	Screen s(1000, 1000);
+	Screen s(sizex, sizey);
 	_getch();
-	SetCursorPos(500, 500);
+	SetCursorPos(sizex/2, sizey/2);
 	double t = 0;
 	while (true)
 	{
@@ -103,27 +104,27 @@ int main()
 	POINT p;
 		GetCursorPos(&p);
 
-		if (p.x != 500)
+		if (p.x != sizex/2)
 		{
-			ca.rotateNormalX(-0.001 * (p.x - 500));
-			p.x = 500;
+			ca.rotateNormalX(-0.001 * (p.x - sizex/2));
+			p.x = sizex/2;
 		}
-		if (p.y != 500)
+		if (p.y != sizey/2)
 		{
-			ca.rotateNormalY(-0.001 * (p.y - 500));
-			p.y = 500;
+			ca.rotateNormalY(-0.001 * (p.y - sizey/2));
+			p.y = sizey/2;
 		}
 
 		SetCursorPos(p.x, p.y);
-		for (double x = -50; x < 50; x+=0.1)
+		for (double x = -100; x < 100; x+=0.1)
 		{
-			for (double y = -50; y < 50; y+=0.1)
+			for (double y = -100; y < 100; y+=0.1)
 			{
 				dbl z = function(y, x,-t);
 				//cout << z << "\n";
 				auto o = ca.WorldToScreen(Vector3D(x, y, z));
 				//cout << o.X << " " << o.Y << " " << o.Z<< "\n";
-				s.put_pixel_3(o.X+ 500, o.Y + 500);
+				s.put_pixel_3(o.X+ sizex/2, o.Y + sizey/2);
 			}
 		}
 
@@ -150,10 +151,15 @@ int main()
 		//..cout << "render" << "\n";
 		//cout << ca.Location.X << " " << ca.Location.Y << " " << ca.Location.Z << "\n";
 		//cout << ca.Normal.X << " " << ca.Normal.Y << " " << ca.Normal.Z << "\n";
- 		//_getch();
+		//_getch();
 		//s.clear();
 	}
 	_getch();
-    return 0;
+	return 0; 
+	
+
 }
+
+
+;
 
