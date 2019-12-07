@@ -1,20 +1,19 @@
 //defines 3d vectors, camera and triangles (which form the mesh)
-//AUTHOR: ShreyanshDarshan
+//AUTHOR: ShreyanshDarshan, archit120
 
 #pragma once
 #include<cmath>
 #include"Vector3D.h"
+#include"Vector2D.h"
 #define dbl long double
 
 class Triangle
 {
 public:
 	Vector3D actual[3];
-	Vector3D projected[3];
-	Vector3D normal;
+	Vector2D projected[3];
 
-	dbl CalculateNormal();
-	void VertexToTriangle(Vector3D** vertex, int x, int y, int type);
+	dbl CalculateNormal(); //Implement @Neha Dalmia
 };
 
 

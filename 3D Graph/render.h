@@ -22,6 +22,9 @@ private:
 unsigned char* pBuffer;
 
 public :
+
+	void draw_polygon(vector<int> x, vector<int> y, unsigned char r, unsigned char g, unsigned char b); // Implement @Neha Dalmia
+
 void put_pixel(int x, int y,  unsigned char r, unsigned char g, unsigned char b)
 {
 	if(x >0 && x < length && y >0 && y<height)

@@ -3,28 +3,29 @@
 #include"stdafx.h"
 #include"Camera.h"
 #include"Vector3D.h"
+#include"Vector2D.h"
 
 void Camera::CalculateFocusPoint()
 {
 	focusPoint = Location + Normal * focalLength;
 }
 
-Vector3D Camera::WorldToScreen(Vector3D Point)
+Vector2D Camera::WorldToScreen(Vector3D Point)
 {
 	CalculateFocusPoint();
 	Vector3D dir = Point - focusPoint;
 	Vector3D rel = Point - Location;
 	if ((focusPoint - Location).dotProduct(Normal) * rel.dotProduct(Normal) < 0)
 	{
-		return Vector3D(-10000, -10000, -10000);
+		return Vector2D(-10000, -10000);
 	}
 	if (!dir.dotProduct(Normal))
 	{
-		return Vector3D(-10000, -10000, -10000);
+		return Vector2D(-10000, -10000);
 	}
 	if (focalLength > abs(rel.dotProduct(Normal)))
 	{
-		return Vector3D(-10000, -10000, -10000);
+		return Vector2D(-10000, -10000);
 	}
 
 	dbl ln = Location.dotProduct(Normal);
@@ -34,7 +35,7 @@ Vector3D Camera::WorldToScreen(Vector3D Point)
 	//invert for virtual image
 	double x = -xAxis.dotProduct(rel);
 	double y = -yAxis.dotProduct(rel);
-	return Vector3D(x, y, 0);
+	return Vector2D(x, y);
 }
 
 void Camera::rotateAxis(dbl theta)
