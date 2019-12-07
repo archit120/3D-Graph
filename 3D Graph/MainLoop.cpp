@@ -21,52 +21,8 @@ void MainLoop::loop(Screen& s, Camera& ca)
 	{
 		t += 0.1;
 		s.clear();
-		if (_kbhit())
-		{
-			char c;
-			c = _getch();
-
-			switch (c)
-			{
-			case 'w':
-				ca.Location = ca.Location + ca.Normal;
-				break;
-			case 's':
-				ca.Location = ca.Location - ca.Normal;
-				break;
-			case 'a':
-				ca.Location = ca.Location - ca.xAxis;
-				break;
-			case 'd':
-				ca.Location = ca.Location + ca.xAxis;
-				break;
-
-			case 't':
-				ca.Location = ca.Location + ca.yAxis;
-				break;
-			case 'g':
-				ca.Location = ca.Location - ca.yAxis;
-				break;
-			case 'q':
-				ca.rotateAxis(0.1);
-				break;
-			case 'e':
-				ca.rotateAxis(-0.1);
-				break;
-			case 'y':
-				ca.rotateNormalX(0.01);
-				break;
-			case 'h':
-				ca.rotateNormalX(-0.01);
-				break;
-			case 'u':
-				ca.rotateNormalY(0.01);
-				break;
-			case 'j':
-				ca.rotateNormalY(-0.01);
-				break;
-			}
-		}
+		
+		MainLoop::UserInput(ca);
 
 		POINT p;
 		GetCursorPos(&p);
@@ -120,5 +76,55 @@ void MainLoop::loop(Screen& s, Camera& ca)
 		//cout << ca.Normal.X << " " << ca.Normal.Y << " " << ca.Normal.Z << "\n";
 		//_getch();
 		//s.clear();
+	}
+}
+
+void MainLoop::UserInput(Camera& ca)
+{
+	if (_kbhit())
+	{
+		char c;
+		c = _getch();
+
+		switch (c)
+		{
+		case 'w':
+			ca.Location = ca.Location + ca.Normal;
+			break;
+		case 's':
+			ca.Location = ca.Location - ca.Normal;
+			break;
+		case 'a':
+			ca.Location = ca.Location - ca.xAxis;
+			break;
+		case 'd':
+			ca.Location = ca.Location + ca.xAxis;
+			break;
+
+		case 't':
+			ca.Location = ca.Location + ca.yAxis;
+			break;
+		case 'g':
+			ca.Location = ca.Location - ca.yAxis;
+			break;
+		case 'q':
+			ca.rotateAxis(0.1);
+			break;
+		case 'e':
+			ca.rotateAxis(-0.1);
+			break;
+		case 'y':
+			ca.rotateNormalX(0.01);
+			break;
+		case 'h':
+			ca.rotateNormalX(-0.01);
+			break;
+		case 'u':
+			ca.rotateNormalY(0.01);
+			break;
+		case 'j':
+			ca.rotateNormalY(-0.01);
+			break;
+		}
 	}
 }

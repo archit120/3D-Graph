@@ -7,5 +7,5 @@ class MainLoop
 {
 public:
 	static void loop(Screen& s, Camera& ca);
-	//static void UserInput();
+	static void UserInput(Camera& ca);
 };
