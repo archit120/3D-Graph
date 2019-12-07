@@ -4,6 +4,8 @@
 #include <cmath>
 #include <vector>
 
+#pragma once
+
 #include <iostream>
 using namespace std;
 class Screen

@@ -148,6 +148,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="MainLoop.h" />
     <ClInclude Include="Triangle.h" />
     <ClInclude Include="render.h" />
     <ClInclude Include="stdafx.h" />
@@ -158,6 +159,7 @@
   <ItemGroup>
     <ClCompile Include="3D Graph.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="MainLoop.cpp" />
     <ClCompile Include="Vector2D.cpp" />
     <ClCompile Include="Vector3D.cpp" />
     <ClCompile Include="Triangle.cpp" />
