@@ -11,7 +11,7 @@
 #include "Triangle.h"
 #include "Camera.h"
 #include "Vector3D.h"
-
+#include "Vector2D.h"
 #define dbl long double
 #define sizex 1000
 #define sizey 1000
