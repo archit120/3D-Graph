@@ -11,12 +11,20 @@
 #include "Camera.h"
 #include "Vector3D.h"
 #include "Vector2D.h"
-#include "MainLoop.h"
+#include "ControlLoop.h"
 #define dbl long double
 #define sizex 1000
 #define sizey 1000
 
 using namespace std;
+
+/*
+	Represents the function to be plotted by returning the z value. The variables y and x correspond to input coordinates. A third variable t is for interactive plots.
+*/
+dbl function(dbl y, dbl x, dbl t)
+{
+	return sin(sqrt((x) * (x)+(y) * (y)));
+}
 
 int main()
 {
@@ -37,7 +45,49 @@ int main()
 	_getch();
 	SetCursorPos(sizex/2, sizey/2);
 	
-	MainLoop::loop(s, ca);
+	double t = 0;
+	while (true)
+	{
+		ControlLoop::loop(s, ca, t);
+
+		for (double x = -100; x < 100; x += 0.1)
+		{
+			for (double y = -100; y < 100; y += 0.1)
+			{
+				dbl z = function(y, x, -t);
+				//cout << z << "\n";
+				auto o = ca.WorldToScreen(Vector3D(x, y, z));
+				//cout << o.X << " " << o.Y << " " << o.Z<< "\n";
+				s.put_pixel_3(o.X + sizex / 2, o.Y + sizey / 2);
+			}
+		}
+
+		//int count = 0;
+		//for (int y = 1; y < 1000 - 1; y += 1)
+		//{
+		//	for (int x = 0; x < 1000-1; x += 1)
+		//	{
+		//		mesh[count].VertexToTriangle(onScreen, x, y, 1);
+		//		count++;
+		//		mesh[count].VertexToTriangle(onScreen, x, y, 0);
+		//		count++;
+		//	}
+		//}
+		//for (int x = 0; x < 1000 - 1; x += 1)
+		//{
+		//	mesh[count].VertexToTriangle(onScreen, x, 0, 1);
+		//	count++;
+		//	mesh[count].VertexToTriangle(onScreen, x, 1000 - 1, 0);
+		//	count++;
+		//}
+
+		s.Draw();
+		//..cout << "render" << "\n";
+		//cout << ca.Location.X << " " << ca.Location.Y << " " << ca.Location.Z << "\n";
+		//cout << ca.Normal.X << " " << ca.Normal.Y << " " << ca.Normal.Z << "\n";
+		//_getch();
+		//s.clear();
+	}
 
 	_getch();
     return 0;

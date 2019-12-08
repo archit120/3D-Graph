@@ -3,9 +3,9 @@
 #include "Camera.h"
 #include <conio.h>
 
-class MainLoop
+class ControlLoop
 {
 public:
-	static void loop(Screen& s, Camera& ca);
+	static void loop(Screen& s, Camera& ca, double& t);
 	static void UserInput(Camera& ca);
 };
