@@ -48,7 +48,9 @@ int main()
 	double t = 0;
 	while (true)
 	{
-		ControlLoop::loop(s, ca, t);
+		s.clear();
+
+		ControlLoop::loop(ca, t);
 
 		for (double x = -100; x < 100; x += 0.1)
 		{

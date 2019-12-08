@@ -6,10 +6,9 @@
 #define sizex 1000
 #define sizey 1000
 
-void ControlLoop::loop(Screen& s, Camera& ca, double& t)
+void ControlLoop::loop(Camera& ca, double& t)
 {
 	t += 0.1;
-	s.clear();
 		
 	ControlLoop::UserInput(ca);
 

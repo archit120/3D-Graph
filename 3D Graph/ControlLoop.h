@@ -6,6 +6,6 @@
 class ControlLoop
 {
 public:
-	static void loop(Screen& s, Camera& ca, double& t);
+	static void loop(Camera& ca, double& t);
 	static void UserInput(Camera& ca);
 };
