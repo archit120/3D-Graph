@@ -5,13 +5,13 @@
 
 #include "render.h"
 #include <iostream>
-#include <cmath>
 #include <vector>
 #include <conio.h>
 #include "Triangle.h"
 #include "Camera.h"
 #include "Vector3D.h"
 #include "Vector2D.h"
+#include "ControlLoop.h"
 #define dbl long double
 #define sizex 1000
 #define sizey 1000
@@ -24,10 +24,6 @@ using namespace std;
 dbl function(dbl y, dbl x, dbl t)
 {
 	return sin(sqrt((x) * (x)+(y) * (y)));
-	//if(y < 50 && x < 50)
-	//return sin(sqrt((x +25)*(x +25) + (y - 10)*(y - 10)) + t)  + sin(sqrt((x+25)*(x+25) + (y +10)*(y +10)) + 2*t);
-	//return sqrt(y*x);
-	//return 0;
 }
 
 int main()
@@ -48,82 +44,23 @@ int main()
 	Screen s(sizex, sizey);
 	_getch();
 	SetCursorPos(sizex/2, sizey/2);
+	
 	double t = 0;
 	while (true)
 	{
-		t += 0.1;
 		s.clear();
-		if (_kbhit())
-		{
-			char c;
-			c = _getch();
 
-			switch (c)
+		ControlLoop::loop(ca, t);
+
+		for (double x = -100; x < 100; x += 0.1)
+		{
+			for (double y = -100; y < 100; y += 0.1)
 			{
-			case 'w':
-				ca.Location = ca.Location + ca.Normal;
-				break;
-			case 's':
-				ca.Location = ca.Location - ca.Normal;
-				break;
-			case 'a':
-				ca.Location = ca.Location - ca.xAxis;
-				break;
-			case 'd':
-				ca.Location = ca.Location + ca.xAxis;
-				break;
-
-			case 't':
-				ca.Location = ca.Location + ca.yAxis;
-				break;
-			case 'g':
-				ca.Location = ca.Location - ca.yAxis;
-				break;
-			case 'q':
-				ca.rotateAxis(0.1);
-				break;
-			case 'e':
-				ca.rotateAxis(-0.1);
-				break;
-			case 'y':
-				ca.rotateNormalX(0.01);
-				break;
-			case 'h':
-				ca.rotateNormalX(-0.01);
-				break;
-			case 'u':
-				ca.rotateNormalY(0.01);
-				break;
-			case 'j':
-				ca.rotateNormalY(-0.01);
-				break;
-			}
-		}
-
-	POINT p;
-		GetCursorPos(&p);
-
-		if (p.x != sizex/2)
-		{
-			ca.rotateNormalX(-0.001 * (p.x - sizex/2));
-			p.x = sizex/2;
-		}
-		if (p.y != sizey/2)
-		{
-			ca.rotateNormalY(-0.001 * (p.y - sizey/2));
-			p.y = sizey/2;
-		}
-
-		SetCursorPos(p.x, p.y);
-		for (double x = -100; x < 100; x+=0.1)
-		{
-			for (double y = -100; y < 100; y+=0.1)
-			{
-				dbl z = function(y, x,-t);
+				dbl z = function(y, x, -t);
 				//cout << z << "\n";
 				auto o = ca.WorldToScreen(Vector3D(x, y, z));
 				//cout << o.X << " " << o.Y << " " << o.Z<< "\n";
-				s.put_pixel_3(o.X+ sizex/2, o.Y + sizey/2);
+				s.put_pixel_3(o.X + sizex / 2, o.Y + sizey / 2);
 			}
 		}
 
@@ -150,9 +87,10 @@ int main()
 		//..cout << "render" << "\n";
 		//cout << ca.Location.X << " " << ca.Location.Y << " " << ca.Location.Z << "\n";
 		//cout << ca.Normal.X << " " << ca.Normal.Y << " " << ca.Normal.Z << "\n";
- 		//_getch();
+		//_getch();
 		//s.clear();
 	}
+
 	_getch();
     return 0;
 }
