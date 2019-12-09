@@ -3,12 +3,16 @@
 #include"stdafx.h"
 #include"Camera.h"
 #include"Vector3D.h"
-
+/*
+	As the name suggests, it calculates the focus point of the camera 
+*/
 void Camera::CalculateFocusPoint()
 {
 	focusPoint = Location + Normal * focalLength;
 }
-
+/*
+	Converts the 3D image into the projection according to the viewing angle of the camera so that it will be visible on the screen
+*/
 Vector3D Camera::WorldToScreen(Vector3D Point)
 {
 	CalculateFocusPoint();
@@ -36,13 +40,17 @@ Vector3D Camera::WorldToScreen(Vector3D Point)
 	double y = -yAxis.dotProduct(rel);
 	return Vector3D(x, y, 0);
 }
-
+/*
+	Function rotates the Axes by a given angle theta
+*/
 void Camera::rotateAxis(dbl theta)
 {
 	yAxis = (yAxis* (cos(theta)) + yAxis.crossProduct(Normal) * (sin(theta)));
 	xAxis = (xAxis* (cos(theta)) + xAxis.crossProduct(Normal) * (sin(theta)));
 }
-
+/*
+	Function rotates the veiwing normal along the x axis by angle theta
+*/
 void Camera::rotateNormalX(dbl theta)
 {
 	Normal = (Normal* (cos(theta)) + Normal.crossProduct(yAxis) * (sin(theta)));
@@ -50,7 +58,9 @@ void Camera::rotateNormalX(dbl theta)
 	yAxis = Normal.crossProduct(xAxis);
 	Location = focusPoint - Normal * focalLength;
 }
-
+/*
+	Function rotates the veiwing normal along the y axis by angle theta
+*/
 void Camera::rotateNormalY(dbl theta)
 {
 	Normal = (Normal* (cos(theta)) + Normal.crossProduct(xAxis) * (sin(theta)));
@@ -59,7 +69,9 @@ void Camera::rotateNormalY(dbl theta)
 	Location = focusPoint - Normal * focalLength;
 
 }
-
+/*
+	Initialtes the viewing angle of the camera or the Image that will appear on the screen
+*/
 Camera::Camera(Vector3D startLocation, dbl FocalLength)
 {
 	Location = startLocation;
