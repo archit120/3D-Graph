@@ -4,15 +4,18 @@
 #include"Triangle.h"
 #include"Vector3D.h"
 #define dbl long double
-
-
+/*
+	Checks whether the normal between base and hypotenuse is coming out of the plane(returns positive value) or into the plane (returns negative value)
+*/
 dbl Triangle::CalculateNormal()
 {
 	normal = (actual[1] - actual[0]).crossProduct(actual[2] - actual[0]);
 	normal = normal.Unit();
 	return normal.dotProduct(Vector3D(0, 0, 1));
 }
-
+/*
+	Creates a Triangle From a given point with coordinates x and y
+*/
 void Triangle::VertexToTriangle(Vector3D** vertex, int x, int y, int type)
 {
 	//Triangle* faces = new Triangle[2*(sizex - 1)*(sizey - 1)]; 
