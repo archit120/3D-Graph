@@ -1,7 +1,10 @@
 //AUTHOR: archit120
 
 #pragma once
+#include "Vector2D.h"
 #include"Vector3D.h"
+#include <vector>
+#include"Triangle.h"
 #define dbl long double
 
 using namespace std;
@@ -22,7 +25,10 @@ public:
 
 
 	void CalculateFocusPoint();
-	Vector3D WorldToScreen(Vector3D Point);
+	Vector2D WorldToScreen(Vector3D Point);
+
+	vector<Vector2D> WorldToScreen(Triangle triangle); //Implement @Neha Dalmia
+
 	void rotateAxis(dbl theta);
 	void rotateNormalX(dbl theta);
 	void rotateNormalY(dbl theta);

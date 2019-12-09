@@ -5,13 +5,13 @@
 
 #include "render.h"
 #include <iostream>
-#include <cmath>
 #include <vector>
 #include <conio.h>
 #include "Triangle.h"
 #include "Camera.h"
 #include "Vector3D.h"
-
+#include "Vector2D.h"
+#include "ControlLoop.h"
 #define dbl long double
 #define sizex 1000
 #define sizey 1000
@@ -22,11 +22,7 @@ using namespace std;
 */
 dbl function(dbl y, dbl x, dbl t)
 {
-	return sin(sqrt((x)*(x)*(x)+(y) * (y)));
-	//if(y < 50 && x < 50)
-	//return sin(sqrt((x +25)*(x +25) + (y - 10)*(y - 10)) + t)  + sin(sqrt((x+25)*(x+25) + (y +10)*(y +10)) + 2*t);
-	//return sqrt(y*x);
-	//return 0;
+	return sin(sqrt((x) * (x)+(y) * (y)));
 }
 /*
 	The main function containing the running code
@@ -47,88 +43,25 @@ int main()
 	ca.yAxis = Vector3D(0, 0, 1);
 	ca.xAxis = Vector3D(0, 1, 0);
 	ca.Normal = ca.yAxis.crossProduct(ca.xAxis);
-	Screen s(1000, 1000);// Screen is a class from render.h. It creates a screen to generate the given graph
+	Screen s(sizex, sizey);
 	_getch();
-	SetCursorPos(500, 500);
-	/*
-		variable 't' is used to control the movement of screen according to the different values of t. The screen can be moved in different ways using this variable in this loop 
-	*/
+	SetCursorPos(sizex/2, sizey/2);
 	double t = 0;
 	while (true)//this is a continuous loop so as to provide continuous input through keyboard and mouse
 	{
-		t += 0.1;
 		s.clear();
-		if (_kbhit())//It is generally used by Borland's family of compilers. It returns a non-zero integer if a key is in the keyboard buffer.
-		{
-			char c;
-			c = _getch();//read a single character from the console without echoing the character. 
 
-			switch (c)
+		ControlLoop::loop(ca, t);
+
+		for (double x = -100; x < 100; x += 0.1)
+		{
+			for (double y = -100; y < 100; y += 0.1)
 			{
-			case 'w':
-				ca.Location = ca.Location + ca.Normal;
-				break;
-			case 's':
-				ca.Location = ca.Location - ca.Normal;
-				break;
-			case 'a':
-				ca.Location = ca.Location - ca.xAxis;
-				break;
-			case 'd':
-				ca.Location = ca.Location + ca.xAxis;
-				break;
-
-			case 't':
-				ca.Location = ca.Location + ca.yAxis;
-				break;
-			case 'g':
-				ca.Location = ca.Location - ca.yAxis;
-				break;
-			case 'q':
-				ca.rotateAxis(0.1);
-				break;
-			case 'e':
-				ca.rotateAxis(-0.1);
-				break;
-			case 'y':
-				ca.rotateNormalX(0.01);
-				break;
-			case 'h':
-				ca.rotateNormalX(-0.01);
-				break;
-			case 'u':
-				ca.rotateNormalY(0.01);
-				break;
-			case 'j':
-				ca.rotateNormalY(-0.01);
-				break;
-			}
-		}
-
-	POINT p;
-		GetCursorPos(&p);
-
-		if (p.x != 500)
-		{
-			ca.rotateNormalX(-0.001 * (p.x - 500));
-			p.x = 500;
-		}
-		if (p.y != 500)
-		{
-			ca.rotateNormalY(-0.001 * (p.y - 500));
-			p.y = 500;
-		}
-
-		SetCursorPos(p.x, p.y);
-		for (double x = -50; x < 100; x+=0.1)
-		{
-			for (double y = -50; y < 100; y+=0.1)
-			{
-				dbl z = function(y, x,-t);
+				dbl z = function(y, x, -t);
 				//cout << z << "\n";
 				auto o = ca.WorldToScreen(Vector3D(x, y, z));
 				//cout << o.X << " " << o.Y << " " << o.Z<< "\n";
-				s.put_pixel_3(o.X+ 500, o.Y + 500);
+				s.put_pixel_3(o.X + sizex / 2, o.Y + sizey / 2);
 			}
 		}
 
@@ -155,7 +88,7 @@ int main()
 		//..cout << "render" << "\n";
 		//cout << ca.Location.X << " " << ca.Location.Y << " " << ca.Location.Z << "\n";
 		//cout << ca.Normal.X << " " << ca.Normal.Y << " " << ca.Normal.Z << "\n";
- 		//_getch();
+		//_getch();
 		//s.clear();
 	}
 	_getch();//finally
