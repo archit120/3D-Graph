@@ -54,18 +54,29 @@ int main()
 
 		ControlLoop::loop(ca, t);
 
-		for (double x = -100; x < 100; x += 0.1)
-		{
-			for (double y = -100; y < 100; y += 0.1)
-			{
-				dbl z = plt_func(y, x, -t);
-				//cout << z << "\n";
-				auto o = ca.WorldToScreen(Vector3d(x, y, z));
-				//cout << o.X << " " << o.Y << " " << o.Z<< "\n";
-				s.put_pixel_3(o[0] + sizex / 2, o[1] + sizey / 2);
-			}
-		}
+		//for (double x = -100; x < 100; x += 0.1)
+		//{
+		//	for (double y = -100; y < 100; y += 0.1)
+		//	{
+		//		dbl z = plt_func(y, x, -t);
+		//		//cout << z << "\n";
+		//		auto o = ca.WorldToScreen(Vector3d(x, y, z));
+		//		//cout << o.X << " " << o.Y << " " << o.Z<< "\n";
+		//		s.put_pixel_3(o[0] + sizex / 2, o[1] + sizey / 2);
+		//	}
+		//}
 
+		Triangle t;
+		t.actual[0] = Vector3d(10, 0, 0);
+		t.actual[1] = Vector3d(0, 10, 0);
+		t.actual[2] = Vector3d(0, 0, 0);
+		auto pt = ca.WorldToScreen(t);
+		vector<int> x, y;
+
+		for (auto t : pt)
+		x.push_back(t[0] + sizex/2), y.push_back(t[1] + sizey/2);
+
+		s.draw_polygon(x, y, 255, 255, 255);
 		//int count = 0;
 		//for (int y = 1; y < 1000 - 1; y += 1)
 		//{

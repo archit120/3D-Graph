@@ -90,7 +90,7 @@ Camera::Camera(Vector3d startLocation, dbl FocalLength)
 
 vector<Vector2d> Camera::WorldToScreen(Triangle triangle)
 {
-	vector<Vector2d> v;
+	vector<Vector2d> v(3);
 	v[0] = WorldToScreen(triangle.actual[0]);
 	v[1] = WorldToScreen(triangle.actual[1]);
 	v[2] = WorldToScreen(triangle.actual[2]);

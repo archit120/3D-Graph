@@ -2,7 +2,6 @@
 
 #include"stdafx.h"
 #include"Triangle.h"
-#include"Vector3d.h"
 #define dbl long double
 /*
 	Checks whether the normal between base and hypotenuse is coming out of the plane(returns positive value) or into the plane (returns negative value)
