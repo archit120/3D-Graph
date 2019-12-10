@@ -8,7 +8,9 @@
 #define dbl long double
 
 using namespace std;
-
+/*
+	Camera class is for representing your camera in the worldspace. This class does all the computation for calculating exactly where a point in our 3D space would end up on the screen
+*/
 class Camera
 {
 private:

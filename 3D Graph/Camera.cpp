@@ -5,12 +5,19 @@
 #include"Vector3D.h"
 #include<vector>
 #include"Vector2D.h"
+
+/*
+	Calculates the focus point of the camera 
+*/
 void Camera::CalculateFocusPoint()
 {
 	focusPoint = Location + Normal * focalLength;
 }
 
-Vector2D Camera::WorldToScreen(Vector3D Point)
+/*
+	Converts the 3D image into the projection according to the viewing angle of the camera so that it will be visible on the screen
+*/
+Vector3D Camera::WorldToScreen(Vector3D Point)
 {
 	CalculateFocusPoint();
 	Vector3D dir = Point - focusPoint;
@@ -38,13 +45,17 @@ Vector2D Camera::WorldToScreen(Vector3D Point)
 	double y = -yAxis.dotProduct(rel);
 	return Vector2D(x, y);
 }
-
+/*
+	Function rotates the Axes by a given angle theta
+*/
 void Camera::rotateAxis(dbl theta)
 {
 	yAxis = (yAxis* (cos(theta)) + yAxis.crossProduct(Normal) * (sin(theta)));
 	xAxis = (xAxis* (cos(theta)) + xAxis.crossProduct(Normal) * (sin(theta)));
 }
-
+/*
+	Function rotates the veiwing normal along the x axis by angle theta
+*/
 void Camera::rotateNormalX(dbl theta)
 {
 	Normal = (Normal* (cos(theta)) + Normal.crossProduct(yAxis) * (sin(theta)));
@@ -52,7 +63,9 @@ void Camera::rotateNormalX(dbl theta)
 	yAxis = Normal.crossProduct(xAxis);
 	Location = focusPoint - Normal * focalLength;
 }
-
+/*
+	Function rotates the veiwing normal along the y axis by angle theta
+*/
 void Camera::rotateNormalY(dbl theta)
 {
 	Normal = (Normal* (cos(theta)) + Normal.crossProduct(xAxis) * (sin(theta)));
@@ -61,7 +74,9 @@ void Camera::rotateNormalY(dbl theta)
 	Location = focusPoint - Normal * focalLength;
 
 }
-
+/*
+	Initialtes the viewing angle of the camera or the Image that will appear on the screen
+*/
 Camera::Camera(Vector3D startLocation, dbl FocalLength)
 {
 	Location = startLocation;
@@ -71,6 +86,7 @@ Camera::Camera(Vector3D startLocation, dbl FocalLength)
 	xAxis = Normal.crossProduct(Vector3D(0, 0, -1)).Unit();
 	yAxis = Normal.crossProduct(xAxis);
 }
+
 
 vector<Vector2D> Camera::WorldToScreen(Triangle triangle)
 {
