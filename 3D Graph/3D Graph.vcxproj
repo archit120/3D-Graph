@@ -103,6 +103,8 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Fast</FloatingPointModel>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -153,15 +155,11 @@
     <ClInclude Include="render.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="Vector2D.h" />
-    <ClInclude Include="Vector3D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3D Graph.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ControlLoop.cpp" />
-    <ClCompile Include="Vector2D.cpp" />
-    <ClCompile Include="Vector3D.cpp" />
     <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

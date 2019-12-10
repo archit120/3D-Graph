@@ -1,10 +1,10 @@
 //AUTHOR: archit120
 
 #pragma once
-#include "Vector2D.h"
-#include"Vector3D.h"
 #include <vector>
 #include"Triangle.h"
+
+#include<Eigen/Dense>
 #define dbl long double
 
 using namespace std;
@@ -14,23 +14,23 @@ using namespace std;
 class Camera
 {
 private:
-	Vector3D focusPoint;
+	Vector3d focusPoint;
 
 public:
-	Vector3D Normal;
-	Vector3D xAxis;
-	Vector3D yAxis;
-	Vector3D Location;
+	Vector3d Normal;
+	Vector3d xAxis;
+	Vector3d yAxis;
+	Vector3d Location;
 	dbl focalLength;
 
 
 	void CalculateFocusPoint();
-	Vector2D WorldToScreen(Vector3D Point);
+	Vector2d WorldToScreen(Vector3d Point);
 
-	vector<Vector2D> WorldToScreen(Triangle triangle); //Implement @Neha Dalmia
+	vector<Vector2d> WorldToScreen(Triangle triangle); //Implement @Neha Dalmia
 
 	void rotateAxis(dbl theta);
 	void rotateNormalX(dbl theta);
 	void rotateNormalY(dbl theta);
-	Camera(Vector3D startLocation, dbl FocalLength);
+	Camera(Vector3d startLocation, dbl FocalLength);
 };

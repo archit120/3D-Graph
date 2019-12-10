@@ -3,17 +3,19 @@
 
 #pragma once
 #include<cmath>
-#include"Vector3D.h"
-#include"Vector2D.h"
+#include <Eigen/Dense>
 #define dbl long double
+
+using namespace Eigen;
+
 /*
 	Create a class for storing triangles and creating new ones with given coordinates
 */
 class Triangle
 {
 public:
-	Vector3D actual[3];
-	Vector2D projected[3];
+	Vector3d actual[3];
+	Vector2d projected[3];
 
 	dbl CalculateNormal(); //Implement @Neha Dalmia
 };
