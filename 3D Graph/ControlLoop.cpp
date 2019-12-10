@@ -1,4 +1,6 @@
+#ifdef _WIN32
 #include "stdafx.h"
+#endif
 #include "ControlLoop.h"
 #include <cmath>
 
@@ -34,7 +36,7 @@ void ControlLoop::UserInput(Camera& ca)
 	if (_kbhit())
 	{
 		char c;
-		c = _getch();
+		c = cin.get();
 
 		switch (c)
 		{

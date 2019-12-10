@@ -1,17 +1,20 @@
 // 3D Graph.cpp : Defines the entry point for the console application.
 //AUTHOR: archit120 + ShreyanshDarshan
-
-#include "stdafx.h"
-
-#include "render.h"
+#ifdef _WIN32
+	#include "stdafx.h"	
+	#include "render.h"
+	#include <conio.h>
+#elif __APPLE__||__linux__
+	#include "renderlinux.h"
+#endif
 #include <iostream>
 #include <vector>
-#include <conio.h>
+#include "ControlLoop.h"
 #include "Triangle.h"
 #include "Camera.h"
 #include "Vector3D.h"
 #include "Vector2D.h"
-#include "ControlLoop.h"
+
 #define dbl long double
 #define sizex 1000
 #define sizey 1000
@@ -21,7 +24,7 @@ using namespace std;
 /*
 	Represents the function to be plotted by returning the z value. The variables y and x correspond to input coordinates. A third variable t is for interactive plots.
 */
-dbl function(dbl y, dbl x, dbl t)
+dbl mathFunction(dbl y, dbl x, dbl t)
 {
 	return sin(sqrt((x) * (x)+(y) * (y)));
 }
@@ -42,7 +45,7 @@ int main()
 	ca.xAxis = Vector3D(0, 1, 0);
 	ca.Normal = ca.yAxis.crossProduct(ca.xAxis);
 	Screen s(sizex, sizey);
-	_getch();
+	cin.get();
 	SetCursorPos(sizex/2, sizey/2);
 	
 	double t = 0;
@@ -56,7 +59,7 @@ int main()
 		{
 			for (double y = -100; y < 100; y += 0.1)
 			{
-				dbl z = function(y, x, -t);
+				dbl z = mathFunction(y, x, -t);
 				//cout << z << "\n";
 				auto o = ca.WorldToScreen(Vector3D(x, y, z));
 				//cout << o.X << " " << o.Y << " " << o.Z<< "\n";
@@ -91,7 +94,7 @@ int main()
 		//s.clear();
 	}
 
-	_getch();
+	cin.get();
     return 0;
 }
 
