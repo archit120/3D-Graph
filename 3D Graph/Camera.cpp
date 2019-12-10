@@ -17,7 +17,7 @@ void Camera::CalculateFocusPoint()
 /*
 	Converts the 3D image into the projection according to the viewing angle of the camera so that it will be visible on the screen
 */
-Vector3D Camera::WorldToScreen(Vector3D Point)
+Vector2D Camera::WorldToScreen(Vector3D Point)
 {
 	CalculateFocusPoint();
 	Vector3D dir = Point - focusPoint;
