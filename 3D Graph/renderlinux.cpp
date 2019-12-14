@@ -1,16 +1,16 @@
-#include "renderLinux.h"
+#include "renderlinux.h"
 #include <iostream>
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #define dbl long double
 
 using namespace std;
 
-
+extern Screen s;
 
 
     
     void Screen::clear()
-    {
+    {   SDL_SetRenderDrawColor(renderer, 0, 0, 0, 15);
         SDL_RenderClear(renderer);
     }
     void Screen::put_pixel(int x, int y,  unsigned char r, unsigned char g, unsigned char b)
@@ -22,7 +22,7 @@ using namespace std;
     }
 
     void Screen::put_pixel_3(dbl x, dbl y)
-   {   cout<<"Inside put_pixel";
+   {   
     if (x >0 && x < length && y >0 && y<height)
     {
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 15);
@@ -32,22 +32,19 @@ using namespace std;
     }
 
     void Screen::Draw()
-    {   
+    {   SDL_Delay(200/25);
+ 
         SDL_RenderPresent(renderer);
-       
-       SDL_Event windowEvent;
-        while(true)
-        {
-            
-            
-            if(SDL_PollEvent(&windowEvent))
+        SDL_Event windowEvent;
+        
+         if(SDL_PollEvent(&windowEvent))
             {
                 if(SDL_QUIT == windowEvent.type)
                 {   cleanup();
-                    break;
+                    
                 }
             }
-        }
+        
     }
 
     Screen::Screen(int l,int h)
@@ -67,7 +64,8 @@ using namespace std;
     }   
 
     
+    
     void SetCursorPos(int x,int y)
     {
-        SDL_WarpMouseInWindow(Screen::window,x,y);
+        SDL_WarpMouseInWindow(s.window,x,y);
     }

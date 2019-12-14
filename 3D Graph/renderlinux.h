@@ -1,12 +1,13 @@
+#pragma once
 #include <iostream>
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #define dbl long double
 using namespace std;
 
 class Screen
 {
     public:
-    static SDL_Window *window;
+    SDL_Window *window;
     SDL_Renderer *renderer;
     SDL_Surface *window_surface; 
     int length;
@@ -31,5 +32,7 @@ class Screen
 
 
 };
+
+
 
 void SetCursorPos(int x,int y);

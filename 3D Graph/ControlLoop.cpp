@@ -1,7 +1,7 @@
 #ifdef _WIN32
 	#include "stdafx.h"
 #elif __APPLE__||__linux__
-	#include <SDL2/SDL.h>
+	#include <SDL.h>
 	#include "renderlinux.h"
 	struct POINT
 	{
@@ -14,6 +14,7 @@
 		p->x=x;
 		p->y=y;
 	}
+
 #include <stdio.h>
 #include <termios.h>
 #include <unistd.h>
@@ -45,7 +46,7 @@ int _kbhit(void)
  
   return 0;
 }
- 
+
 #endif
 #include "ControlLoop.h"
 #include <cmath>
@@ -74,7 +75,7 @@ void ControlLoop::loop(Camera& ca, double& t)
 		p.y = sizey / 2;
 	}
 
-	SetCursorPos(p.x, p.y);
+//SetCursorPos(p.x, p.y);
 }
 
 void ControlLoop::UserInput(Camera& ca)
