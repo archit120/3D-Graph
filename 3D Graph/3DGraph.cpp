@@ -68,7 +68,7 @@ int main()
 				s.put_pixel_3(o.X + sizex / 2, o.Y + sizey / 2);
 			}
 		}
-		cout<<"fps";
+		//cout<<"fps";
 		//int count = 0;
 		//for (int y = 1; y < 1000 - 1; y += 1)
 		//{
@@ -89,6 +89,8 @@ int main()
 		//}
 
 		s.Draw();
+
+		
 		//..cout << "render" << "\n";
 		//cout << ca.Location.X << " " << ca.Location.Y << " " << ca.Location.Z << "\n";
 		//cout << ca.Normal.X << " " << ca.Normal.Y << " " << ca.Normal.Z << "\n";

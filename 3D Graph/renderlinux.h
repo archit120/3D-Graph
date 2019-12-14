@@ -26,8 +26,9 @@ class Screen
 
 
     void Draw();
-    void cleanup();
+    //void cleanup();
     Screen(int l,int h);
+    ~Screen();
     
 
 

@@ -40,7 +40,7 @@ extern Screen s;
          if(SDL_PollEvent(&windowEvent))
             {
                 if(SDL_QUIT == windowEvent.type)
-                {   cleanup();
+                {   s.~Screen();
                     
                 }
             }
@@ -56,12 +56,19 @@ extern Screen s;
         height = h*10;
     }
 
-    void Screen::cleanup()
+    Screen::~Screen()
     {
         SDL_DestroyWindow(window);
         SDL_DestroyRenderer(renderer);
         SDL_Quit();
-    }   
+    }
+
+    /*void Screen::cleanup()
+    {
+        SDL_DestroyWindow(window);
+        SDL_DestroyRenderer(renderer);
+        SDL_Quit();
+    }*/   
 
     
     
