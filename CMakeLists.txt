@@ -21,7 +21,7 @@ include_directories(${SDL2_INCLUDE_DIRS})
 
 message(STATUS "sdl2 loc= ${SDL2_PATH} = ${SDL2_INCLUDE_DIRS}")
 message(STATUS "lib = ${SDL2_LIBRARY} = ${SDL2MAIN_LIBRARY}")
-add_executable(output ${src}/3DGraph.cpp)
+add_executable(output ${src}/3D\ Graph.cpp)
 target_link_libraries( vec3 vec2)
 target_link_libraries(camera vec2 vec3)
 target_link_libraries(conloop camera ${SDL2_LIBRARY})
