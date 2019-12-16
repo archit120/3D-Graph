@@ -8,6 +8,10 @@ In the future however there are plans to introduce massive speed ups making it a
 
 ## Compiling
 
-No external libraries are needed. Currently windows only but work is being done on making it cross-platform. 
+No external libraries are needed. Windows is supported with VS 2017. Linux support is experimental. 
 
+### Windows
 Use VS 2017 or later and you can compile with no extra steps. However, retarget for Windows SDK version if mismatch. 
+
+### Linux
+Run "cmake ." and then "make"
