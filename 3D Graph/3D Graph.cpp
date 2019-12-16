@@ -1,17 +1,21 @@
 // 3D Graph.cpp : Defines the entry point for the console application.
 //AUTHOR: archit120 + ShreyanshDarshan
-
-#include "stdafx.h"
-
-#include "render.h"
+#ifdef _WIN32
+	#include "stdafx.h"	
+	#include "render.h"
+	#include <conio.h>
+#elif __APPLE__||__linux__
+	#include "renderlinux.h"
+	extern Screen s;
+#endif
 #include <iostream>
 #include <vector>
-#include <conio.h>
-#include "Triangle.h"
+#include "ControlLoop.h"
+//#include "Triangle.h"
 #include "Camera.h"
 #include "Vector3D.h"
 #include "Vector2D.h"
-#include "ControlLoop.h"
+
 #define dbl long double
 #define sizex 1000
 #define sizey 1000
@@ -20,10 +24,12 @@ using namespace std;
 /*
 	Represents the function to be plotted by returning the z value. The variables y and x correspond to input coordinates. A third variable t is for interactive plots.
 */
-dbl function(dbl y, dbl x, dbl t)
+dbl mathFunction(dbl y, dbl x, dbl t)
 {
 	return sin(sqrt((x) * (x)+(y) * (y)));
 }
+Screen s(sizex, sizey);
+
 /*
 	The main function containing the running code
 */
@@ -43,8 +49,7 @@ int main()
 	ca.yAxis = Vector3D(0, 0, 1);
 	ca.xAxis = Vector3D(0, 1, 0);
 	ca.Normal = ca.yAxis.crossProduct(ca.xAxis);
-	Screen s(sizex, sizey);
-	_getch();
+	
 	SetCursorPos(sizex/2, sizey/2);
 	double t = 0;
 	while (true)//this is a continuous loop so as to provide continuous input through keyboard and mouse
@@ -57,14 +62,14 @@ int main()
 		{
 			for (double y = -100; y < 100; y += 0.1)
 			{
-				dbl z = function(y, x, -t);
-				//cout << z << "\n";
+				dbl z = mathFunction(y, x, -t);
+				
 				auto o = ca.WorldToScreen(Vector3D(x, y, z));
 				//cout << o.X << " " << o.Y << " " << o.Z<< "\n";
 				s.put_pixel_3(o.X + sizex / 2, o.Y + sizey / 2);
 			}
 		}
-
+		//cout<<"fps";
 		//int count = 0;
 		//for (int y = 1; y < 1000 - 1; y += 1)
 		//{
@@ -85,13 +90,15 @@ int main()
 		//}
 
 		s.Draw();
+
+		
 		//..cout << "render" << "\n";
 		//cout << ca.Location.X << " " << ca.Location.Y << " " << ca.Location.Z << "\n";
 		//cout << ca.Normal.X << " " << ca.Normal.Y << " " << ca.Normal.Z << "\n";
 		//_getch();
 		//s.clear();
-	}
-	_getch();//finally
+  }
+	cin.get();
     return 0;
 }
 

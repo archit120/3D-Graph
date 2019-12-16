@@ -1,8 +1,12 @@
 #pragma once
+#ifdef _WIN32
 #include "render.h"
-#include "Camera.h"
 #include <conio.h>
-
+#elif __APPLE__||__linux__
+#include "renderlinux.h"
+#endif
+#include <iostream>
+#include "Camera.h"
 class ControlLoop
 {
 public:
