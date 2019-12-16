@@ -6,7 +6,9 @@
 #include"Vector3D.h"
 #include"Vector2D.h"
 #define dbl long double
-
+/*
+	Create a class for storing triangles and creating new ones with given coordinates
+*/
 class Triangle
 {
 public:

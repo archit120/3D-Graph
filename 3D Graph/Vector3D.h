@@ -5,7 +5,9 @@
 #define dbl long double
 
 using namespace std;
-
+/*
+	Class to create a 3D  vector and all the operations required  
+*/
 class Vector3D
 {
 public:

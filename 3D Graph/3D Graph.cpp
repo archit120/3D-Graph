@@ -21,7 +21,6 @@
 #define sizey 1000
 
 using namespace std;
-
 /*
 	Represents the function to be plotted by returning the z value. The variables y and x correspond to input coordinates. A third variable t is for interactive plots.
 */
@@ -29,9 +28,11 @@ dbl mathFunction(dbl y, dbl x, dbl t)
 {
 	return sin(sqrt((x) * (x)+(y) * (y)));
 }
-
 Screen s(sizex, sizey);
 
+/*
+	The main function containing the running code
+*/
 int main()
 {
 	/*Vector3D** onScreen = new Vector3D* [1000];
@@ -41,6 +42,7 @@ int main()
 	{
 		onScreen[i] = new Vector3D [1000];
 	}*/
+
 	Camera ca(Vector3D(10, 10, 10), 290);
 	ca.Location = Vector3D(305, 0, 4);
 	//ca.Normal = Vector3D(-1, 0, 0);
@@ -49,9 +51,8 @@ int main()
 	ca.Normal = ca.yAxis.crossProduct(ca.xAxis);
 	
 	SetCursorPos(sizex/2, sizey/2);
-	
 	double t = 0;
-	while (true)
+	while (true)//this is a continuous loop so as to provide continuous input through keyboard and mouse
 	{
 		s.clear();
 
@@ -96,8 +97,7 @@ int main()
 		//cout << ca.Normal.X << " " << ca.Normal.Y << " " << ca.Normal.Z << "\n";
 		//_getch();
 		//s.clear();
-	}
-
+  }
 	cin.get();
     return 0;
 }
