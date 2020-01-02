@@ -1,6 +1,4 @@
-#ifdef _WIN32
-	#include "stdafx.h"
-#elif __APPLE__||__linux__
+#ifdef __APPLE__||__linux__
 	#include <SDL.h>
 	#include "renderlinux.h"
 	struct POINT
@@ -75,7 +73,7 @@ void ControlLoop::loop(Camera& ca, double& t)
 		p.y = sizey / 2;
 	}
 
-//SetCursorPos(p.x, p.y);
+SetCursorPos(p.x, p.y);
 }
 
 void ControlLoop::UserInput(Camera& ca)
@@ -83,7 +81,7 @@ void ControlLoop::UserInput(Camera& ca)
 	if (_kbhit())
 	{
 		char c;
-		c = cin.get();
+		c = _getch();
 
 		switch (c)
 		{

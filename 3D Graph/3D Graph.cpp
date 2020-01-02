@@ -1,7 +1,6 @@
 // 3D Graph.cpp : Defines the entry point for the console application.
 //AUTHOR: archit120 + ShreyanshDarshan
 #ifdef _WIN32
-	#include "stdafx.h"	
 	#include "render.h"
 	#include <conio.h>
 #elif __APPLE__||__linux__
@@ -52,6 +51,8 @@ int main()
 	
 	SetCursorPos(sizex/2, sizey/2);
 	double t = 0;
+	cin.get();
+
 	while (true)//this is a continuous loop so as to provide continuous input through keyboard and mouse
 	{
 		s.clear();
