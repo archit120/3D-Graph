@@ -12,6 +12,9 @@
 #include <Eigen/Dense>
 
 #include "ControlLoop.h"
+
+#define NDEBUG 
+
 #define dbl long double
 #define sizex 1000
 #define sizey 1000
@@ -38,35 +41,50 @@ int main()
 		onScreen[i] = new Vector3d [1000];
 	}*/
 
-	Camera ca(Vector3d(10, 10, 10), 290);
-	ca.Location = Vector3d(305, 0, 4);
+	Camera ca(Vector3d(0, 0, 4), 300);
+//	ca.Location = Vector3d(305, 0, 4);
 	//ca.Normal = Vector3d(-1, 0, 0);
-	ca.yAxis = Vector3d(0, 0, 1);
-	ca.xAxis = Vector3d(0, 1, 0);
-	ca.Normal = ca.yAxis.cross(ca.xAxis);
+	ca.yAxis = Vector3d(0, 1, 0);
+	ca.xAxis = Vector3d(1, 0, 0);
+	
 	Screen s(sizex, sizey);
 	_getch();
 	SetCursorPos(sizex/2, sizey/2);
 	double t = 0;
+
+	Matrix<double, 3, 2000> points_buffer;
+
 	while (true)//this is a continuous loop so as to provide continuous input through keyboard and mouse
 	{
-		s.clear();
 
-		ControlLoop::loop(ca, t);
+		bool change = ControlLoop::loop(ca, t);
 
-		//for (double x = -100; x < 100; x += 0.1)
-		//{
-		//	for (double y = -100; y < 100; y += 0.1)
-		//	{
-		//		dbl z = plt_func(y, x, -t);
-		//		//cout << z << "\n";
-		//		auto o = ca.WorldToScreen(Vector3d(x, y, z));
-		//		//cout << o.X << " " << o.Y << " " << o.Z<< "\n";
-		//		s.put_pixel_3(o[0] + sizex / 2, o[1] + sizey / 2);
-		//	}
-		//}
+		if (change)
+		{
+			s.clear();
 
-		Triangle t;
+			for (double x = -100; x < 100; x += 0.1)
+			{
+				for (double y = -100; y < 100; y += 0.1)
+				{
+					points_buffer.col((y + 100) / 0.1) = Vector3d(x, y, plt_func(y, x, -t));
+				}
+				//render y axis at once
+				auto pt = ca.WorldToScreenMat(points_buffer);
+				int ac = 0;
+				for (auto t : pt)
+				{
+					if (t[0] >= -sizex / 2 && t[0] <= sizex / 2 && t[1] >= -sizey / 2  && t[1] <= sizey / 2)
+						s.put_pixel_3(t[0] + sizex / 2, t[1] + sizey / 2), ac++;
+				}
+
+				if (ac == 0 && x > ca.Location(0))	break;
+
+			}
+			s.Draw();
+		}
+
+	/*	Triangle t;
 		t.actual[0] = Vector3d(10, 0, 0);
 		t.actual[1] = Vector3d(0, 10, 0);
 		t.actual[2] = Vector3d(0, 0, 0);
@@ -76,7 +94,7 @@ int main()
 		for (auto t : pt)
 		x.push_back(t[0] + sizex/2), y.push_back(t[1] + sizey/2);
 
-		s.draw_polygon(x, y, 255, 255, 255);
+		s.draw_polygon(x, y, 255, 255, 255);*/
 		//int count = 0;
 		//for (int y = 1; y < 1000 - 1; y += 1)
 		//{

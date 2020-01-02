@@ -25,6 +25,7 @@ private:
 	}
 	unsigned char* pBuffer;
 
+
 public:
 
 	void draw_polygon(vector<int> x, vector<int> y, unsigned char r, unsigned char g, unsigned char b)// Implement @Neha Dalmia

@@ -6,33 +6,38 @@
 #define sizex 1000
 #define sizey 1000
 
-void ControlLoop::loop(Camera& ca, double& t)
+bool ControlLoop::loop(Camera& ca, double& t)
 {
 	t += 0.1;
-		
-	ControlLoop::UserInput(ca);
+	bool ret = false;
+	ret ^= ControlLoop::UserInput(ca);
 
 	POINT p;
 	GetCursorPos(&p);
 
 	if (p.x != sizex / 2)
 	{
+		ret = true;
 		ca.rotateNormalX(-0.001 * (p.x - sizex / 2));
 		p.x = sizex / 2;
 	}
 	if (p.y != sizey / 2)
 	{
+		ret = true;
 		ca.rotateNormalY(-0.001 * (p.y - sizey / 2));
 		p.y = sizey / 2;
 	}
 
 	SetCursorPos(p.x, p.y);
+	return ret;
 }
 
-void ControlLoop::UserInput(Camera& ca)
+bool ControlLoop::UserInput(Camera& ca)
 {
+	bool ret = false;
 	if (_kbhit())
 	{
+		ret = true;
 		char c;
 		c = _getch();
 
@@ -75,6 +80,9 @@ void ControlLoop::UserInput(Camera& ca)
 		case 'j':
 			ca.rotateNormalY(-0.01);
 			break;
+		default:
+			ret = false;
 		}
 	}
+	return ret;
 }

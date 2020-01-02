@@ -15,6 +15,9 @@ class Camera
 {
 private:
 	Vector3d focusPoint;
+	Matrix3d rot;
+	Matrix<double,3,3> proj;
+
 
 public:
 	Vector3d Normal;
@@ -26,8 +29,8 @@ public:
 
 	void CalculateFocusPoint();
 	Vector2d WorldToScreen(Vector3d Point);
-
-	vector<Vector2d> WorldToScreen(Triangle triangle); //Implement @Neha Dalmia
+	vector<Vector2d> WorldToScreenMat(Matrix<double, 3, -1> Points);
+	vector<Vector2d> WorldToScreen(Triangle triangle); 
 
 	void rotateAxis(dbl theta);
 	void rotateNormalX(dbl theta);
