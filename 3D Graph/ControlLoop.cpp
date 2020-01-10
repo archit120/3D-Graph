@@ -17,32 +17,42 @@
 #include <termios.h>
 #include <unistd.h>
 #include <fcntl.h>
- 
-int _kbhit(void)
+SDL_Event event; 
+char _getch(void)
+{	
+	if(event.type == SDL_KEYDOWN)
+	{
+		switch (event.key.keysym.sym)
+		{
+		case SDLK_w:
+			return 'w';
+			/* code */
+			break;
+		case SDLK_a:
+			return 'a';
+			break;
+		case SDLK_s:
+			return 's';
+			break;
+		case SDLK_d:
+			return 'd';
+		default:
+			return 'z'; 
+			break;
+		}
+	}
+}
+
+int _kbhit()
 {
-  struct termios oldt, newt;
-  int ch;
-  int oldf;
- 
-  tcgetattr(STDIN_FILENO, &oldt);
-  newt = oldt;
-  newt.c_lflag &= ~(ICANON | ECHO);
-  tcsetattr(STDIN_FILENO, TCSANOW, &newt);
-  oldf = fcntl(STDIN_FILENO, F_GETFL, 0);
-  fcntl(STDIN_FILENO, F_SETFL, oldf | O_NONBLOCK);
- 
-  ch = getchar();
- 
-  tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
-  fcntl(STDIN_FILENO, F_SETFL, oldf);
- 
-  if(ch != EOF)
-  {
-    ungetc(ch, stdin);
-    return 1;
-  }
- 
-  return 0;
+	SDL_PollEvent(&event);
+	if(event.type == SDL_KEYDOWN)
+		return 1;
+	else
+	{
+		return 0;
+	}
+	
 }
 
 #endif
